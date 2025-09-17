@@ -6,21 +6,20 @@ function createPromise(name) {
 }
 
 const output = document.getElementById("output");
-const start = performance.now();
 
 const promises = [
   createPromise("Promise 1"),
   createPromise("Promise 2"),
   createPromise("Promise 3"),
 ];
-
+let m=0;
 Promise.all(promises).then((results) => {
   output.innerHTML = "";
   results.forEach((res) => {
+	m=Math.max(m,res.time);
     output.innerHTML += `<tr><td>${res.name}</td><td>${res.time.toFixed(3)}</td></tr>`;
   });
-  const total = (performance.now() - start) / 1000;
-  output.innerHTML += `<tr><td>Total</td><td>${total.toFixed(3)}</td></tr>`;
+  output.innerHTML += `<tr><td>Total</td><td>${m.toFixed(3)}</td></tr>`;
 });
 
 
